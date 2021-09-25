@@ -25,7 +25,7 @@ jobs:
       - name: Generate pdf
         run: |
           mkdir public
-          REPO=$(echo $GITHUB_REPOSITORY | awk -F/ 'print $NF')
+          REPO=$(echo $GITHUB_REPOSITORY | awk -F/ '{print $NF}')
           mv main.pdf public/main.pdf
           cat > public/index.html <<EOL
           <!doctype html>
