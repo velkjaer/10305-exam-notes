@@ -25,6 +25,7 @@ jobs:
       - name: Generate pdf
         run: |
           mkdir public
+          REPO=$(echo $GITHUB_REPOSITORY | awk -F/ 'print $NF')
           mv main.pdf public/main.pdf
           cat > public/index.html <<EOL
           <!doctype html>
@@ -34,12 +35,12 @@ jobs:
               </head>
               <body>
                 <p>
-                  <a href="https://velkjaer.github.io/advanced-solid-state-physics/exam-notes/main.pdf">
+                  <a href="https://velkjaer.github.io/${REPO}/main.pdf">
                     Compilation ${{ github.run_number }}
                   </a>
                 </p>
                 <p>
-                  <a href="https://github.com/velkjaer/advanced-solid-state-physics/blob/gh-pages/main.pdf">
+                  <a href="https://github.com/${GITHUB_REPOSITORY}/blob/gh-pages/main.pdf">
                      Direct link to GitHub blob of newest report in pdf.
                   </a>
                 </p>
