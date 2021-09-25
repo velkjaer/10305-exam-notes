@@ -1,0 +1,21 @@
+\section{Correlation energies from the Random Phase Approximation}
+\subsection{The adiabatic connection}
+\begin{exercise}
+Show the Hellman-Feynman theorem.
+\begin{equation}
+    \dv{\lambda}\mel{\Psi_{\lambda}}{\hat{A}_{\lambda}}{\Psi_{\lambda}} = \mel{\Psi_{\lambda}}{\dv{\lambda}\hat{A}_{\lambda}}{\Psi_{\lambda}}
+\end{equation}
+(Hint: Use that $\braket{\Psi_{\lambda}}{\Psi_{\lambda}}=1$ for all $\lambda$) 
+\end{exercise}
+
+\begin{solution}
+Upon applying the operator on both sides we obtain
+\begin{equation}
+        \dv{\lambda}\mel{\Psi_{\lambda}}{a_{\lambda}}{\Psi_{\lambda}} = \mel{\Psi_{\lambda}}{\dv{\lambda}a_{\lambda}}{\Psi_{\lambda}}
+\end{equation}
+$a_{\lambda}$ can be moved outside the integral, and so can the derivative in the second term as the integral is not over $\lambda$, thus
+\begin{equation}
+    \dv{\lambda} a_{\lambda} = \dv{\lambda} a_{\lambda}
+\end{equation}
+Where the hint was used, thus it is shown.
+\end{solution}

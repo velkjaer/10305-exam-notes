@@ -1,0 +1,205 @@
+\section{Week 3 \& 4: Dielectric function}
+\subsection{Section 1; Time-dependent Hartree theory}
+\begin{exercise}
+Given the following induced density functionals
+\begin{align}
+    \delta n(r,\omega) &= \int \chi^{0}(r,r',\omega)\delta v_s(r',\omega)\mathrm{d}r' \quad  \text{induced density due to effective potential}\label{eq:301}\\
+    \delta v_s(r,\omega) &= v_{ext}(r,\omega) + \int \dfrac{\delta n(r',\omega)}{\abs{r-r'}}\mathrm{d}r' \: \text{effective potential} \label{eq:302}\\
+    \delta n(r,\omega) &= \int \chi(r,r',\omega)v_{ext}(r',\omega)\mathrm{d}r' \quad\text{real induced potential} \label{eq:303}
+\end{align}
+Show that the real and effective density response functions are related via
+\begin{equation}
+    \chi(r,r',\omega) = \chi^{0}(r,r',\omega) + \int\int \chi^{0}(r,r_1,\omega) \dfrac{1}{\abs{r_1-r_2}}\chi(r_2,r',\omega)\mathrm{d}r_1\mathrm{d}r_2
+\end{equation}
+\end{exercise}
+\begin{solution}
+The goal is to relate $\chi^{0}$ and $\chi$ through setting equations (\ref{eq:301}) and (\ref{eq:303}) equal. They are not generally equal, but will show when the two expressions are equal. In summary we must require that: 
+\begin{equation}
+    \int \chi^{0}(r,r',\omega)\delta v_s(r',\omega)\mathrm{d}r' = \int \chi(r,r',\omega)v_{ext}(r',\omega)\mathrm{d}r'
+    \label{eq:35}
+\end{equation}
+Hence we will start by substituting the effective potential from \eqref{eq:302} in \eqref{eq:301}, keeping careful track of the $r$-notation:
+Now only looking at the LHS of \eqref{eq:35} we can insert \eqref{eq:302} to get
+\begin{equation}
+   \mathrm{LHS} = \int \chi^{0}(r,r',\omega)v_{ext}(r',\omega) \mathrm{d}r' + \int\int \chi^{0}(r,r',\omega)\dfrac{\delta n(r'',\omega)}{\abs{r'-r''}}\mathrm{d}r''\mathrm{d}r'
+\end{equation}
+Now substituting $\delta n(r'',\omega)$ with \eqref{eq:303} to get
+{\small
+\begin{equation}
+   \int \chi^{0}(r,r',\omega)v_{ext}(r',\omega) \mathrm{d}r' + \int\int\int \chi^{0}(r,r',\omega)\dfrac{1}{\abs{r'-r''}}\chi(r'',r''',\omega)v_{ext}(r''',\omega)\mathrm{d}r'''\mathrm{d}r''\mathrm{d}r'
+\end{equation}}
+In the last term we now change the notation by $r' \rightarrow r_1$ , $r'' \rightarrow r_2$. $r''' \rightarrow r'$.
+\begin{equation}
+   \int \left( \chi^{0}(r,r',\omega)v_{ext}(r',\omega) + \int\int \chi^{0}(r,r_1,\omega)\dfrac{1}{\abs{r_1-r_2}}\chi(r_2,r',\omega)v_{ext}(r',\omega)\mathrm{d}r_2\mathrm{d}r_1 \right) \mathrm{d}r'
+\end{equation}
+The RHS remains the same and we may obtain the solution, by differentiating once (to lift the integral over $r'$) and dividing by $v_{ext}(r',\omega)$. Thus
+\begin{equation}
+    \chi(r,r',\omega) = \chi^{0}(r,r',\omega) + \int\int \chi^{0}(r,r_1,\omega) \dfrac{1}{\abs{r_1-r_2}}\chi(r_2,r',\omega)\mathrm{d}r_1\mathrm{d}r_2
+\end{equation}
+\end{solution}
+
+\subsection{Section 2; The exchange-correlation kernel}
+\begin{exercise}
+Given the definition of the density response of an  interacting electron system, $\chi$, and a non-interacting Kohn-Sham system, $\chi^{s}$, given by:
+\begin{align}
+    \chi(r,r',t-t') &= \left.\dfrac{\delta n(r,t)}{\delta v_{ext}(r',t')}\right|_{n_0(r)} \label{eq:310}\\
+    \chi^{s}(r,r',t-t') &= \left.\dfrac{\delta n(r,t)}{\delta v_{s}(r',t')}\right|_{n_0(r)}
+    \label{eq:311}
+\end{align}
+Use the chain rule of functional differentiation to derive the following relation
+\begin{equation}
+\begin{split}
+    \chi(r,r',\omega) =& \chi^{s}(r,r',\omega)+ \\&\int\int \chi^{s}(r,r_1,\omega)\left[ \dfrac{1}{\abs{r_1-r_2}} + f_{xc}[n](r_1,r_2,\omega)\right]\chi(r_2,r',\omega)\mathrm{d}r_1\mathrm{d}r_2
+\end{split}
+\end{equation}
+where 
+\begin{equation}
+    f_{xc}[n](r,r',t-t') = \dfrac{\delta v_{xc}[n](r,t)}{\delta n(r',t')}\label{eq:313}
+\end{equation}
+\end{exercise}
+
+\begin{solution}
+Using the general time dependent Hartree Fock result for the effective potential
+\begin{equation}
+    v_s(r,t) = v_{ion}(r) + \int \frac{n(r',t)}{\abs{r-r'}} \mathrm{d}r' + v_{ext}(r,t) + v_{xc}(r,t)
+    \label{eq:314}
+\end{equation}
+The chain rule of functional derivatives states
+\begin{equation}
+    \frac{\delta F[Y]}{\delta X(r)} = \int \mathrm{d}s \frac{\delta F[Y]}{\delta Y(s)} \frac{\delta Y(s)}{\delta X(r)}
+    \label{eq:315}
+\end{equation}
+We start off by evaluating the functional derivative in \eqref{eq:310}.
+\begin{equation}
+   \chi(r,r',t-t') =  \dfrac{\delta n(r,t)}{\delta v_{ext}(r',t')} = \int \dfrac{\delta v_s(r_1,t_1)}{\delta v_{ext}(r,t)}\dfrac{\delta n(r,t)}{\delta v_{s}(r_1,t_1)}\mathrm{d}r_1\mathrm{t_1}
+    \label{eq:316}
+\end{equation}
+We immediately note that the second fraction on the RHS corresponds to $\chi^{s}(r,r_1,t-t_1)$. The remaining term we further expand using \eqref{eq:314}.
+{\small
+\begin{equation}
+    \dfrac{\delta n(r,t)}{\delta v_{ext}(r',t')} = \int \chi^{s}(r,r_1,t-t_1) \left[\dfrac{\delta v_{ext}(r_1,t_1)}{\delta v_{ext}(r',t')} + \dfrac{\delta v_H(r_1,t_1)}{\delta v_{ext}(r',t')} + \dfrac{\delta v_{xc}(r_1,t_1)}{\delta v_{ext}(r',t')} + \dfrac{\delta v_{ion}(r_1,t_1)}{\delta v_{ext}(r',t')} \right]\mathrm{d}r_1\mathrm{t_1}
+    \label{eq:317}
+\end{equation}}
+Where $v_H$ is the Hartree term (second term in RHS of \eqref{eq:314}). The first functional derivative above evaluates to a delta function, as
+\begin{equation}
+    \dfrac{\delta v_{ext}(r_1,t_1)}{\delta v_{ext}(r',t')} = \delta(r_1-r') \delta(t_1-t')
+\end{equation}
+The second term (Hartree), is evaluated using the chain rule again
+\begin{equation}
+    \dfrac{\delta v_H(r_1,t_1)}{\delta v_{ext}(r',t')} = \int \dfrac{\delta v_H(r_1,t_1)}{\delta n(r_2,t_2)} \dfrac{\delta n(r_2,t_2)}{\delta v_{ext}(r',t')}      \mathrm{d} r_2 \mathrm{d} t_2 = \int \dfrac{1}{\abs{r_1 - r_2}}\chi(r_2,r',t_2-t')\mathrm{d}r_2\mathrm{d}t_2
+\end{equation}
+We again use the chain rule to evaluate the third term
+{\small
+\begin{equation}
+    \dfrac{\delta v_{xc}(r_1,t_1)}{\delta v_{ext}(r',t')} = \int \dfrac{\delta v_{xc}(r_1,t_1)}{\delta n(r_2,t_2)} \dfrac{\delta n(r_2,t_2)}{\delta v_{ext}(r',t')} \mathrm{d}r_2\mathrm{d}t_2 = \int f_{xc}(r_1,r_2,t_2-t_1) \chi(r_2,r',t_2-t') \mathrm{d}r_2\mathrm{d}t_2
+\end{equation}}
+where the first fraction on the RHS is $f_{xc}(r_1,r_2,t_1-t_2)$ from \eqref{eq:313}, and the second fraction is $\chi(r_2,r',t_2-t')$. The term with $v_{ion}$ is zero, as we have previously assumed the ions to be stationary, hence the potential will not change due to any external field. Collecting everything the full functional derivative becomes
+\begin{equation}
+\begin{split}
+\dfrac{\delta n(r,t)}{\delta v_{ext}(r',t')} 
+= & \int \chi^{s}(r,r_1,t-t_1) \left[\delta(r_1-r') \delta(t_1-t') +  \int \dfrac{1}{\abs{r_1 - r_2}}\chi(r_2,r',t_2-t')\mathrm{d}r_2\mathrm{d}t_2  \right.\\ &\left. +  \int f_{xc}(r_1,r_2,t_2-t_1) \chi(r_2,r',t_2-t') \mathrm{d}r_2\mathrm{d}t_2 \right] \mathrm{d}r_1 \mathrm{d}t_1
+\end{split}
+\end{equation}
+{\small
+\begin{equation}
+    \begin{split}
+\chi(r,r',t-t') &= \dfrac{\delta n(r,t)}{\delta v_{ext}(r',t')} 
+= \chi^{s}(r,r',t-t')  + \\&\int \int \chi^{s}(r,r_1,t-t_1)\left[\dfrac{1}{\abs{r_1 - r_2}}    +  f_{xc}(r_1,r_2,t_2-t_1) \right]\chi(r_2,r',t_2-t') \mathrm{d}r_2\mathrm{d}t_2\mathrm{d}r_1 \mathrm{d}t_1
+\end{split}
+\end{equation}}
+Fourier transforming the time dependence we see that all terms correspond to convolutions (Unsure why this applies) so that we obtain:
+\begin{equation}
+    \chi(r,r',\omega) = \chi^{s}(r,r',\omega)  + \int \int \chi^{s}(r,r_1,\omega)\left[\dfrac{1}{\abs{r_1 - r_2}}    +  f_{xc}(r_1,r_2,\omega) \right]\chi(r_2,r',\omega) \mathrm{d}r_2\mathrm{d}r_1
+\end{equation}
+\end{solution}
+
+
+\subsection{Section 3; The dielectric function}
+\begin{exercise}
+Show that the inverse dielectric function is given by
+\begin{equation}
+    \epsilon^{-1}(r,r',\omega) = \delta(r-r') + \int \dfrac{1}{\abs{r-r_1}}\chi(r_1,r',\omega)\mathrm{d}r_1
+\end{equation}
+\end{exercise}
+\begin{solution}
+First equation 17 and 18 from the problem handout are set equal to each other 
+\begin{equation}
+    \delta v_{tot}(r,\omega) = \int \epsilon^{-1} v_{ext}(r_1,\omega) \mathrm{d} r_1 = v_{ext}(r,\omega) + \int \frac{\delta n(r_1,\omega)}{\abs{r-r_1}} \mathrm{d}r_1\label{eq:326}
+\end{equation}
+We then take the functional derivative of the above equation with respect to $v_{ext}(r',\omega)$
+\begin{equation}
+    \dfrac{\delta v_{tot}(r,\omega)}{\delta v_{ext}(r',\omega)} = \dfrac{\delta v_{ext}(r,\omega)}{\delta v_{ext}(r',\omega)} + \int \dfrac{1}{\abs{r-r_1}}\dfrac{\delta n(r_1,\omega)}{\delta v_{ext}(r',\omega)}\mathrm{d}r_1
+\end{equation}
+
+the first term in the RHS just evaluates to a delta function $\delta(r-r')$. The functional derivative in the integral is just the definition of $\chi$ evaluated at $\chi(r_1,r',\omega)$, so we obtain:
+\begin{equation}
+    \dfrac{\delta v_{tot}(r,\omega)}{\delta v_{ext}(r',\omega)} = \delta(r-r') + \int \dfrac{1}{\abs{r-r_1}}\chi(r_1,r',\omega)\mathrm{d}r_1 \label{eq:327}
+\end{equation}
+Now we repeat the operation on the middle term in \eqref{eq:326}, which somewhat trivially reduces to:
+\begin{equation}
+    \dfrac{\delta v_{tot}(r,\omega)}{\delta v_{ext}(r',\omega)} = \int \epsilon^{-1}\dfrac{\delta v_{ext}(r_1,\omega)}{\delta v_{ext}(r',\omega)} \mathrm{d}r_1 = \int \epsilon^{-1} \delta(r_1 - r') \mathrm{d}r_1 = \epsilon^{-1} \label{eq:328}
+\end{equation}
+Thus it all reduces to
+\begin{equation}
+    \epsilon^{-1}(r,r',\omega) = \delta(r-r') + \int \dfrac{1}{\abs{r-r_1}}\chi(r_1,r',\omega) \mathrm{d}r_1
+\end{equation}
+\end{solution}
+
+%%%
+\begin{exercise}
+When exchange and correlation effects are neglected, i.e. within the RPA, the total potential $\delta v_{tot}$ becomes identical to the effective potential $\delta v_s$. In that case show that the dielectric function is given in real space by
+\begin{equation}
+    \epsilon(r,r',\omega) = \delta(r-r') + \int \dfrac{1}{\abs{r-r_1}}\chi^{0}(r_1,r',\omega)\mathrm{d}r_1
+\end{equation}
+\end{exercise}
+\begin{solution}
+We start by isolating the inverse dielectric function from \begin{equation}
+    \delta v_{tot} = \int\epsilon^{-1}(r,r',\omega)v_{ext}(r',\omega)\mathrm{d}r'
+\end{equation}
+by taking the functional derivative with respect to $\delta v_{ext}(r'',\omega)$ so that
+\begin{equation}
+    \dfrac{\delta v_{tot}(r)}{\delta v_{ext}(r'')} = \int\epsilon^{-1}(r,r',\omega)\delta(r'-r'')\mathrm{d}r' = \epsilon^{-1}(r,r',\omega)
+\end{equation}
+From the above we may flip the relation so that
+\begin{equation}
+    \dfrac{\delta v_{ext}(r')}{\delta v_{tot}(r)} = \epsilon(r,r',\omega)
+\end{equation}
+In the case where exchange and correlation effects are neglected $\delta v_{tot}$ takes the form of \eqref{eq:314} with $v_{xc} = 0$. As the ionic potential doesn't change with applied fields (frozen in approximation) the only terms are the Hatree term and the external potential. Isolating the external potential in \eqref{eq:314} and using the adiabatic property (of turning on the potential at negative infinity)\footnote{so that $\delta v_{tot} = \delta v_{ext} + \int \delta n(r',\omega)/\abs{r-r'}\mathrm{d}r'$} we obtain:
+\begin{equation}
+\begin{split}
+    \dfrac{\delta v_{ext}(r')}{\delta v_{tot}(r)} &= \dfrac{\delta v_{tot}(r')}{\delta v_{tot}(r)} - \int \dfrac{\delta n(r_1,\omega)}{\delta v_{tot}(r)}\dfrac{1}{\abs{r-r_1}}\mathrm{d}r_1
+    \\&= \delta(r-r') - \int \dfrac{1}{\abs{r'-r_1}}\chi^{0}(r_1,r',\omega)\mathrm{d}r_1 = \epsilon(r,r',\omega)
+\end{split}
+\end{equation}
+where we may shift the indexes of $r' \leftrightarrow r$ on the LHS to obtain the solution.
+\end{solution}
+
+\subsection{Section 4; the scalar macroscopic dielectric function}
+\begin{exercise}
+Argue why the scalar macroscopic dielectric function $\epsilon_M(\omega)$ given by:
+\begin{equation}
+    \epsilon_M(\omega) = \lim_{q\rightarrow 0} \dfrac{1}{\epsilon_{00}^{-1}(q,\omega)}
+\end{equation} 
+is in general different from $\lim_{q\rightarrow 0} \epsilon_{00}(q,\omega)$. When does it hold that \\ $\epsilon_M = \lim_{q\rightarrow 0} \epsilon_{00}(q,\omega)$?
+\end{exercise}
+\begin{solution}
+Start by recalling that the dielectric function relates the external potential to the total potential through:
+\begin{equation}
+    \delta v_{tot}(r,\omega) = \int \epsilon^{-1}(r,r',\omega)v_{ext}(r',\omega)\mathrm{d}r'
+\end{equation}
+If we consider the discretised version of the above equation in reciprocal space the dielectric function has the matrix form:
+\begin{equation}
+    \underline{\underline{\epsilon}} = \begin{bmatrix}
+    \underline{\underline{\epsilon_{00}}} & \underline{\underline{\epsilon_{01}}} &.&.&.\\
+    \underline{\underline{\epsilon_{10}}} & \underline{\underline{\epsilon_{11}}} & & & \\
+    .& &.& & & \\
+    .& & &.& & \\
+    .& & & &.& \\
+    \end{bmatrix}
+\end{equation}
+where the matrices inside the matrices represent the discretised momentum coordinate $q$, and the corresponding external potential has the form:
+\begin{equation}
+   \underline{v_{ext}} = [v(G=0,q=0),v(G=0,q_1),v(G=0,q_2),...,v(G=1,q=0),...]^{\mathrm{T}} 
+\end{equation}
+Evidently, as we are interested in the change in the total potential due to an external field, we must take the form desired element of $\epsilon^{-1}$ rather than $\epsilon$ as the relation $(\underline{\underline{A}}[1,1])^{-1} = \underline{\underline{A}}^{-1}[1,1]$ is only true for diagonal matrices. We must further focus on the $\epsilon_{00}$ element as we are interested in the change due to "slow"-varying field, such as optical frequencies. Consequently taking the limit $\epsilon_M = \lim_{q\rightarrow 0} \epsilon_{00}(q,\omega)$ would change the question from: \emph{"how is the total potential influence by an external potential"} to \emph{"what external potential would generate this change in the total potential"}.
+\end{solution}

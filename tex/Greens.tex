@@ -1,0 +1,234 @@
+\section{The one particle Green function}
+\subsection{Spectral properties}
+
+
+
+\begin{exercise}
+Show that the Green function is only a funciton of the timer difference $t-t'$ such that we can write
+\begin{equation}
+    G(x,x') = G(r,r';\tau), \quad \tau = t-t'
+\end{equation}
+\end{exercise}
+
+\begin{solution}
+We start with the definition of the Green's funciton given in equation 1 in the problem handout
+\begin{equation}\label{eq:generalGreens}
+    G(x,x') = -i \theta(t-t') \mel{N}{\{\hat{\Psi}(x),\hat{\Psi}(x')\}}{N}
+\end{equation}
+And plug in the form of the creation and annihilation operators from the Heisenberg picture $\hat{\Psi}(x) = e^{iHt}\hat{\Psi}(r)e^{-iHt}$, and $\hat{\Psi}^{\dagger}(x) = e^{-iHt}\hat{\Psi}^{\dagger}(r)e^{iHt}$. Plugging this in gives
+\begin{equation}
+\begin{split}
+    G(x,x') \\
+    = -i \theta(t-t') \mel{N}{e^{iHt}\hat{\Psi}(r)e^{-iHt}e^{iHt'}\hat{\Psi}^{\dagger}(r)e^{-iHt'} + e^{iHt'}\hat{\Psi}^{\dagger}(r)e^{-iHt'}e^{iHt}\hat{\Psi}(r)e^{-iHt} }{N} \\
+    = -i \theta(t-t') e^{iE_0(t-t')} \mel{N}{\hat{\Psi}(r)e^{-iHt}e^{iHt'}\hat{\Psi}^{\dagger}(r) + \hat{\Psi}^{\dagger}(r)e^{-iHt'}e^{iHt}\hat{\Psi}(r) }{N} \\
+    = -i \theta(t-t') e^{iE_0(t-t')} \mel{N}{\{\hat{\Psi}(r)e^{iH(t-t')}\hat{\Psi}^{\dagger}(r) + \hat{\Psi}^{\dagger}(r)e^{iH(t-t')}\hat{\Psi}(r)}{N} 
+\end{split}
+\end{equation}
+So that it can now be seen that the greens function only depends on $\tau = t-t'$
+\end{solution}
+
+
+
+\begin{exercise}
+Show that the Fourier transform of the Greens function may be written as
+\begin{equation}
+    G(r,r';\omega) \equiv \int_{-\infty}^{\infty}\mathrm{e}^{i(\omega+i\eta)\tau}G(r,r';\tau)\mathrm{d}\tau
+\end{equation}
+\begin{equation}
+    G(r,r';\omega) = \sum_i \dfrac{\Psi_{i+}^{QP}(r)\Psi_{i+}^{QP}(r')^{*}}{\omega - \varepsilon_{i+}^{QP} + i\eta} + \sum_i \dfrac{\Psi_{i-}^{QP}(r)\Psi_{i-}^{QP}(r')^{*}}{\omega - \varepsilon_{i-}^{QP} + i\eta}
+\end{equation}
+where the quasiparticle wave functions and energies have been defined as
+\begin{align}\label{eq:QPdef1}
+    \Psi_{i+}^{QP}(r) = \mel{N}{\Psi(r)}{N+1,i} \quad , \quad \varepsilon_{i+}^{QP} = E^{i}_{N+1} - E^{0}_{N}  \\
+    \Psi_{i-}^{QP}(r) = \mel{N-1,i}{\Psi(r)}{N} \quad , \quad 
+    \varepsilon_{i-}^{QP} = E^{0}_{N} - E^{i}_{N-1} \label{eq:QPdef2}
+\end{align}
+\end{exercise}
+\begin{solution}
+Starting from equation \ref{eq:generalGreens} and only considering the first term in the anti-commutator and inserting a complete set of eigenstates between the field operators (remembering that this in principle involves all states with any number of particles) we may write
+\begin{equation}
+    \mel{N}{\Psi(x)\Psi^{\dagger}(x')}{N} = \mel{N}{\Psi(x)\sum_i\ket{N+1,i}\bra{N+1,i}\Psi^{\dagger}(x')}{N}
+\end{equation}
+where we have used that the annihilation operator must act on an orbital $i$ in a state containing $N+1$ particles, which we label $\ket{N+1,i}$. Here we can use the relation $\Psi(x) = \mathrm{e}^{iHt}\Psi(r)\mathrm{e}^{-iHt}$ to explicitly account for the time dependence.
+\begin{equation}
+    \mel{N}{\Psi(x)\Psi^{\dagger}(x')}{N} = \sum_i\mathrm{e}^{i(E^{0}_{N} - E^{i}_{N+1})(t-t')}\mel{N}{\Psi(r)}{N+1,i}\mel{N+1,i}{\Psi^{\dagger}(r')}{N}
+\end{equation}
+Similarly we may obtain an equation for the other term in the anti-commutator, remembering that we here must act on all states containing $N-1$ particles.
+\begin{equation}
+    \mel{N}{\Psi^{\dagger}(x')\Psi(x)}{N} = \sum_i\mathrm{e}^{i(E^{i}_{N-1} - E^{0}_{N})(t-t')}\mel{N}{\Psi^{\dagger}(r')}{N-1,i}\mel{N-1,i}{\Psi(r)}{N}
+\end{equation}
+Defining the energies in the exponential and the inner products in accordance with equations (\ref{eq:QPdef1}) and (\ref{eq:QPdef2}) we may write the entire Greens function as
+\begin{equation}
+    G(r,r';\tau) = -i\theta(\tau)\left(\sum_i \mathrm{e}^{-i\varepsilon_{i+}^{QP}\tau}\Psi_{i+}^{QP}(r)\Psi_{i+}^{QP}(r')^{*} + \sum_i \mathrm{e}^{-i\varepsilon_{i-}^{QP}\tau}\Psi_{i-}^{QP}(r)\Psi_{i-}^{QP}(r')^{*}\right)
+\end{equation}
+As the quasi-particle field operators are independent of $\tau$ the Fourier transform is simply over the exponential function $\mathrm{e}^{i(\omega + i\eta - \varepsilon_{i\pm}^{QP})\tau}$ bringing the argument into the denominator. The boundaries are now $\tau = 0$ and $\tau \rightarrow \infty$ hence only the $\tau = 0$ term will contribute (ensured by $\eta$). Performing the Fourier transform gives the solution
+\begin{equation}
+    G(r,r';\omega) = \sum_i \dfrac{\Psi_{i+}^{QP}(r)\Psi_{i+}^{QP}(r')^{*}}{\omega - \varepsilon_{i+}^{QP} +i\eta} + \sum_i \dfrac{\Psi_{i-}^{QP}(r)\Psi_{i-}^{QP}(r')^{*}}{\omega-\varepsilon_{i-}^{QP} + i\eta}
+\end{equation}
+\end{solution}
+
+
+\subsection{Non-interacting electrons}
+\begin{exercise}
+Suppose that we have a non-interacting Hamiltonian $H*0$. The manyparticle state $\ket{N}$ is then an N-particle Slater determinant composed of the N single particle orbitals $\phi_n(r)$ with eigenvalues $\varepsilon_n$. \\
+Show that the QP wave functions and energies coincide with single particle orbitals and energies and thus from Eq. (4) the non-interacting Green function becomes
+\begin{equation}\label{eq:nonintGreens}
+    \begin{split}
+        G^0(r,r';\omega) = \sum_{n=1}^N \frac{\phi_n(r) \phi_n^*(r')}{\omega- \varepsilon_n + i \eta} + \sum_{n=N+1}^{\infty} \frac{\phi_n(r) \phi_n^*(r')}{\omega- \varepsilon_n + i \eta}  \\
+        = \sum_{n=1}^{\infty} \frac{\phi_n(r) \phi_n^*(r')}{\omega- \varepsilon_n + i \eta}
+    \end{split}
+\end{equation}
+\end{exercise}
+
+\begin{solution}
+We start of by evaluating the quasi particle wave functions (eq 6 and 7 in the project handout), where we write the field operators in second quantised form
+
+\begin{equation}
+    \begin{split}
+        \Psi_{i+}^{QP}(r) = \mel{N}{\sum_n \phi_n c_n}{N+1,i} = \phi_n \\
+        \Psi_{i-}^{QP}(r) = \mel{N-1,i}{\sum_n \phi_n c_n}{N} = \phi_n
+    \end{split}
+\end{equation}
+Both of these equations are only non-zero if the annihilation operators remove exactly the i'th state. The top sum only has to evaluate from $N+1$ to infinity, whereas the bottom from 1 to $N$, because otherwise they try to remove electrons that will not bring it to the ground state. Thereby the sums in equation (5) in the problem hand can be changed to run over those exact indices, and the energies in the denominator are just given by the energy associated with the i'th state. Thus the result is obtained by letting $i \rightarrow n$
+\begin{equation}
+    \begin{split}
+        G^0(r,r';\omega) &= \sum_{n=1}^N \frac{\phi_n(r) \phi_n^*(r')}{\omega- \varepsilon_n + i \eta} + \sum_{n=N+1}^{\infty} \frac{\phi_n(r) \phi_n^*(r')}{\omega- \varepsilon_n + i \eta}  \\
+        &= \sum_{n=1}^{\infty} \frac{\phi_n(r) \phi_n^*(r')}{\omega- \varepsilon_n + i \eta}
+    \end{split}
+\end{equation}
+\end{solution}
+
+\begin{exercise}
+Show that the trace of the non-interacting spectral function
+\begin{equation}
+\int \mathrm{d}r A^{0}(r,r,\omega)
+\end{equation}
+is equal to the density of states of the non-interacting Hamiltonian.
+\end{exercise}
+\begin{solution}
+The spectral function is given by equation (13) in the problem handout
+\begin{equation}
+    A^0(\omega) = - \frac{1}{\pi} \mathrm{Im}(G^0(\omega))
+\end{equation}
+Plugging in the Green's function as given in equation (18) in the problem handout gives 
+\begin{equation}
+    A^0(\omega) = \frac{1}{\pi} \sum_n  \pi \delta(\omega- \varepsilon_n) \ket{\phi_n} \bra{\phi_n}
+\end{equation}
+Where we used the relation $\lim_{\eta \rightarrow 0} \frac{1}{x + i \eta} = \frac{\mathcal{P}}{x} - i \pi \delta(x)$.
+\end{solution}
+So that the trace is
+\begin{equation}
+    \int \mathrm{d}r A^0(r,r,\omega) = \int \mathrm{d}r \sum_n \delta(\omega-\varepsilon_n) \ket{\phi_n} \bra{\phi_n}
+\end{equation}
+Which is the density of states of the non-interacting Hamiltonian.
+\subsection{The self-energy}
+\begin{exercise}
+Show that the non-interacting Greens function satisfies the equation of motion
+\begin{equation}\label{eq:EOM}
+    \left[i\dfrac{\partial}{\partial \tau} - H^{0}(r)\right]G^{0}(r) = \delta(r-r')\delta(\tau)
+\end{equation}
+Next, Fourier transform Eq. \ref{eq:EOM} with respect to $\tau$ and verify that it is solved directly by equation (\ref{eq:nonintGreens}).
+\end{exercise}
+\begin{solution}
+Using the definition of the Greens function in real space \eqref{eq:generalGreens} along with the general time derivative of an operator obtained from the Heisenberg picture $i\partial A/\partial t = \comm{A}{H}$ we may write
+\begin{equation}
+    \dfrac{\partial}{\partial \tau} G^{0}(r,r',\tau)
+\end{equation}
+\end{solution}
+
+\subsection{On the physical meaning of the QP wave functions}
+\begin{exercise}
+Use the identity 
+\begin{equation}
+c_i^{\dagger} = \int \mathrm{d}r\phi_i(r)\Psi^{\dagger}(r)
+\end{equation}
+to show that the maximum of $\abs{\mel{N+1,i}{c_i^{\dagger}}{N,0}}^2$ is obtained when $\phi_i$ is proportional to $\Psi^{QP}_{i+}$. In other words, the QP wave function $\Psi_{i+}^{QP}$ is the orbital that best mimics the true excited state $\ket{N+1,i}$ of the interacting system in the sense of Eq. (41). Similarly the QP state $\Psi_{i-}^{QP}$ is the orbital that makes $\anni{c}{i} \ket{N,0}$ the best approximation to the excited state $\ket{N-1,i}$
+\end{exercise}
+
+
+\begin{solution}
+We plug in the expression for $\crea{c}{i}$ to get
+\begin{equation}
+    \abs{\mel{N+1,i}{\int \mathrm{d}r\phi_i(r)\Psi^{\dagger}(r)}{N,0}}^2
+\end{equation}
+The integral and the function $\phi_i(r)$ can be taken outside the inner product, which can furthermore be expanded, so that we get
+\begin{equation}
+    \int \mathrm{d}r \abs{\phi_i(r)}^2 \mel{N+1,i}{\Psi^{\dagger}(r)}{N,0}\mel{N,0}{\Psi(r)}{N+1,i}
+\end{equation}
+From the above the quasi particle wave function from equation (6) in the problem handout can be easily recognised, so that
+\begin{equation}
+    \int \mathrm{d}r \abs{\phi_i(r)}^2 \abs{\mel{N+1,i}{\Psi^{\dagger}(r)}{N,0}}^2
+\end{equation}
+This is an overlap integral , which clearly is maximised if the two functions overlap, or equivalently one is proportional to the other. \\
+\textbf{Note:} What this means is that one can verify how well the model of non interacting electrons works, by checking how well the non interacting wave functions can resemble the quasi particle wave function.
+\end{solution}
+
+\begin{exercise}
+Next, prove that the norm of the QP wave function is given by
+\begin{equation}
+    \int \abs{\Psi_{i+}^{QP}(r)}^2 \mathrm{d}r = \mel{N+1,i}{\crea{c}{i}}{N,0}
+\end{equation}
+with $\crea{c}{i}$ creating an electron in the \textit{normalised} QP state $\ket{\Psi_{i+}^{QP}}$. Consequently the norm of the QP state $\Psi_{i+}^{QP}$ signals to which extent the excited state $\ket{N+1,i}$ can be regarded as a single-particle excitation.
+\end{exercise}
+
+\begin{solution}
+f
+\end{solution}
+
+\subsection{Hartree-Fock approximation}
+\begin{exercise}
+Apply Wick's theorem to $G_2$ in Eq. (49)
+\begin{equation}
+    G_2(r,r',r'';t) = -\theta(t) \mel{N}{ \acomm{\crea{\Psi}{}(r'',t)  \anni{\Psi}{}(r,t) \anni{\Psi}{}(r'',t)}{\crea{\Psi}{}(r')}}{N}
+    \label{eq:G2}
+\end{equation}
+and show that 
+\begin{equation}
+    G_2(r,r',r'';t) = i n(r'') G(r,r',r) - i \rho(r'',r) G(r'',r',t)
+\end{equation}
+Where $n(r'') = \mel{N}{ \crea{\Psi}{}(r'') \anni{\Psi}{}(r'')}{N}$ is the ground state density and $\rho(r',r) = \mel{N}{ \crea{\Psi}{}(r') \anni{\Psi}{}(r)}{N} $ is the ground state one-particle density matrix.
+\end{exercise}
+
+
+\begin{solution}
+To do this we wish to apply Wick's theorem, which for a four operator expectation value can be expressed as
+\begin{equation}
+    \langle abcd  \rangle = \langle ab \rangle \langle cd \rangle - \langle ac \rangle \langle bd \rangle + \langle ad \rangle \langle bc \rangle
+\end{equation}
+Writing out \eqref{eq:G2} gives
+\begin{equation}
+    \begin{split}
+        G_2(r,r',r'';t) = -\theta(t) \mel{N}{ \crea{\Psi}{}(r'',t)  \anni{\Psi}{}(r,t) \anni{\Psi}{}(r'',t)\crea{\Psi}{}(r')}{N} \\
+         -\theta(t) \mel{N}{\crea{\Psi}{}(r') \crea{\Psi}{}(r'',t)  \anni{\Psi}{}(r,t) \anni{\Psi}{}(r'',t)}{N}
+    \end{split}
+\end{equation}
+The expectation values will only be non zero if they are products of one creation and one annihilation operator, so the above reduces to
+\begin{equation}
+\begin{split}
+    -\theta(t) \mel{N}{ \crea{\Psi}{}(r'',t)  \anni{\Psi}{}(r,t)}{N} \mel{N}{\anni{\Psi}{}(r'',t)\crea{\Psi}{}(r') }{N} \\
+    +\theta(t) \mel{N}{ \crea{\Psi}{}(r'',t)   \anni{\Psi}{}(r'',t) }{N} \mel{N}{\anni{\Psi}{}(r,t)\crea{\Psi}{}(r') }{N}\\
+    +\theta(t) \mel{N}{\crea{\Psi}{}(r') \anni{\Psi}{}(r,t)}{N}  \mel{N}{\crea{\Psi}{}(r'',t)   \anni{\Psi}{}(r'',t)}{N} \\ -
+    \theta(t) \mel{N}{\crea{\Psi}{}(r')   \anni{\Psi}{}(r'',t)   }{N}  \mel{N}{\crea{\Psi}{}(r'',t)  \anni{\Psi}{}(r,t)}{N}
+    \end{split}
+\end{equation}
+Now using the definitions of $n(r'')$ and $\rho(r',r)$ it reduces to
+\begin{equation}
+\begin{split}
+    -\theta(t) \rho(r'',r) \mel{N}{\anni{\Psi}{}(r'',t)\crea{\Psi}{}(r') }{N} \\
+    +\theta(t) n(r'') \mel{N}{\anni{\Psi}{}(r,t)\crea{\Psi}{}(r') }{N}\\
+    +\theta(t) \mel{N}{\crea{\Psi}{}(r') \anni{\Psi}{}(r,t)}{N}  n(r'') \\ -
+    \theta(t) \mel{N}{\crea{\Psi}{}(r')   \anni{\Psi}{}(r'',t)   }{N}  \rho(r'',r)
+    \end{split}
+\end{equation}
+This is recognised as being anticommutators with $\rho$ or $n$ taken outside parentheses,
+\begin{equation}
+\begin{split}
+    - \rho(r'',r) \theta(t)( \mel{N}{\anni{\Psi}{}(r'',t)\crea{\Psi}{}(r') }{N} + \mel{N}{\crea{\Psi}{}(r')   \anni{\Psi}{}(r'',t)   }{N}) \\
+    + n(r'') \theta(t) ( \mel{N}{\anni{\Psi}{}(r,t)\crea{\Psi}{}(r') }{N} +\mel{N}{\crea{\Psi}{}(r') \anni{\Psi}{}(r,t)}{N})
+    \end{split}
+\end{equation}
+Plugging in the definition of the Green function given in equation 1 we obtain the right result
+\begin{equation}
+    G_2(r,r',r'';t) = i n(r'') G(r,r',r) - i \rho(r'',r) G(r'',r',t)
+\end{equation}
+\end{solution}

@@ -1,0 +1,61 @@
+\begin{minipage}{0.33\textwidth}
+        \begin{tikzpicture}
+        	\begin{axis}[
+        		xlabel=$D(\varepsilon)$,
+        		ylabel={$\varepsilon$},
+        		samples=300,
+        		xmin=0,
+        		xmax=pi,
+        		ticks=none,
+        		axis x line=bottom,
+        		axis y line=left,
+        		width = 1\textwidth
+        	]
+        	\node at (axis cs:  2.8, 3.6) {1D};
+        	% use TeX as calculator:
+        	\addplot+[name path=f,color=black,mark=none] {1/sqrt(x)};
+        	\path[name path=axis] (axis cs:0,0) -- (axis cs:1,0);
+        	\addplot [thick,color=black,fill=black,fill opacity=0.05] fill between[of=f and axis];
+        	\end{axis}
+        \end{tikzpicture}
+    \end{minipage}\begin{minipage}{0.33\textwidth}
+        \begin{tikzpicture}
+        	\begin{axis}[
+        		xlabel=$D(\varepsilon)$,
+        		ylabel={$\varepsilon$},
+        		samples=300,
+        		xmin=0,
+        		xmax=pi,
+        		ticks=none,
+        		axis x line=bottom,
+        		axis y line=left,
+        		width = 1\textwidth
+        	]
+        	\node at (axis cs:  2.8,  0.7) {2D};
+        	% use TeX as calculator:
+        	\addplot +[name path=f,mark=none,color=black] coordinates {(2, -1) (2, 3)};
+        	\path[name path=axis] (axis cs:0,-1) -- (axis cs:0,5);
+        	\addplot [thick,color=black,fill=black,fill opacity=0.05] fill between[of=f and axis];
+        	\end{axis}
+        \end{tikzpicture}
+    \end{minipage}\begin{minipage}{0.33\textwidth}
+        \begin{tikzpicture}
+        	\begin{axis}[
+        		xlabel=$D(\varepsilon)$,
+        		ylabel={$\varepsilon$},
+        		samples=300,
+        		xmin=0,
+        		xmax=pi,
+        		ticks=none,
+        		axis x line=bottom,
+        		axis y line=left,
+        		width = 1\textwidth
+        	]
+        	\node at (axis cs:  2.8,  4.5) {3D};
+        	% use TeX as calculator:
+        	\addplot+[name path=f,color=black,mark=none] {x^2};
+        	\path[name path=axis] (axis cs:0,0) -- (axis cs:0,10);
+        	\addplot [thick,color=black,fill=black,fill opacity=0.05] fill between[of=f and axis];
+        	\end{axis}
+        \end{tikzpicture}
+    \end{minipage}

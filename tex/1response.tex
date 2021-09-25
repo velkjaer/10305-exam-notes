@@ -1,0 +1,327 @@
+\section{Week 2: Linear response}
+\textbf{Remarks about this exercise set:}
+We are studying how physical quantities change when subject to weak perturbations. The fact that we're studying weak perturbations allows us to base our analysis on time-dependent perturbation theory to first order. In its essence, this exercise allow us to describe how quantities change to due weak perturbations and of particular interest we looked at how the electron-density changes as a consequence of an applied (scalar) potential.
+
+\textit{Comments on the interaction picture (IP).} Typically smart when the Hamiltonian can be split up into a simple part which shall be denoted $\HO$ and a remainder $V$. In the IP, time-evolution of the operators are taken to be in the Heisenberg picture wrt. $\HO$, i.e., for a given operator of $\hat{A}_{H_{0}}$ we have that $\hat{A}_{H_{0}}\qty(t) = e^{i\HO t} \hat{A}qty(t)e^{-i\HO t_0}$. The remaining time-dependence due to $\hat{V}$ is \textit{carried} through the state-vector with help from the IP time-evolution operator $\hat{U}_I\qty(t, t_0)$ given as Eq. (1) in the exercise-sheet. Additionally, we also utilise the IP given that the Hamiltonian of a system is time-dependent. 
+
+\subsection{Section 2; Linear response of time-independent variables}
+\begin{exercise}
+Show that the change in the (time-independent) observable $\hat{A}$ at time $t = 0$ to linear order in $\hat{V}$ is:
+\begin{equation}
+    \delta A(t=0) = -i\int_{t_0}^{\infty}\theta(-t')\expval{\comm{\hat{A}_{\hat{H}_0}(0)}{\hat{V}_{\hat{H}_0}}(t')}{0}\mathrm{d}t
+\end{equation}
+\end{exercise}
+
+\begin{solution}
+The change in any observable, due to a perturbation is given by
+\begin{equation}
+    \delta A(t=0) = \mel{0}{\hat{U}(0)^{\dagger} \hat{A} \hat{U}(0)}{0} - \mel{0}{\hat{A}}{0}
+    \label{eq:2.2}
+\end{equation}
+
+The operator $\hat{U}$ is given in equation (3) in the problem handout can be Taylor expanded as
+\begin{equation}
+    \hat{U} \approx \hat{T}(1-i \int_{t_0}^0 \hat{V}_{\hat{H}_0}(t') \text{d}t')\mathrm{e}^{i\hat{H}_0t_0}
+    \label{eq:2.3}
+\end{equation}
+$\hat{A}$ is time independent, so upon inserting equation \ref{eq:2.3} in \ref{eq:2.2}, the time ordering operator is unnecessary. Furthermore, the potential must be real, so that  $V_{\hat{H}_0}^{\dagger} = V_{\hat{H}_0}$. Thus:
+{\small \begin{equation}
+\begin{split}
+        \delta A(t=0) = \mel{0}{\mathrm{e}^{-i\hat{H}_0t_0}\left( 1+i \int_{t_0}^0 \hat{V}_{\hat{H}_0}(t') \text{d}t' \right) \hat{A} \left( 1-i \int_{t_0}^0 \hat{V}_{\hat{H}_0}(t') \text{d}t'\right)\mathrm{e}^{i\hat{H}_0t_0}}{0} - \mel{0}{\hat{A}}{0} \\
+        = \mel{0}{\hat{A}}{0} + \mel{0}{i \int_{t_0}^0 \hat{V}_{\hat{H}_0}(t') \text{d}t' \hat{A}}{0} - \mel{0}{\hat{A} i \int_{t_0}^0 \hat{V}_{\hat{H}_0}(t') \text{d}t'}{0} - \mel{0}{\mathcal{O}(\hat{V}_{\hat{H}_0}^2)}{0} - \mel{0}{\hat{A}}{0}
+\end{split}
+\end{equation}}
+Where the operators $\mathrm{e}^{\pm i \hat{H}_0t_0}$ acting to either right or left simply gives $\mathrm{e}^{\pm i E_0 t_0}$ hence it will cancel. \textbf{NB!} the sign of the complex exponential function does not change when acting on the bra instead of the ket!
+As $\hat{A}$ is time independent we have
+\begin{equation}
+    \hat{A}_{\hat{H}_0} = e^{-i\hat{H}_0t} \hat{A} e^{i \hat{H}_0 t} = \hat{A}
+\end{equation}
+Furthermore, it must commute with the time integral. The states $\ket{0}$ are time independent as well, so in fact the integral can be moved outside of the inner products, thus:
+\begin{equation}
+\begin{split}
+        \delta A(t=0) = i\int_{t_0}^0 \left(\mel{0}{\hat{V}_{\hat{H}_0}(t') \hat{A}_{\hat{H}_0}(0)}{0} - \mel{0}{\hat{A}_{\hat{H}_0}(0) \hat{V}_{\hat{H}_0}(t')}{0}\right) \text{d}t' \\ = - i \int_{t_0}^0 \mel{0}{\comm{\hat{A}_{\hat{H}_0}(0)}{ \hat{V}_{\hat{H}_0}(t')}}{0} \text{d}t' = - i \int_{t_0}^{\infty} \theta(-t') \mel{0}{\comm{\hat{A}_{\hat{H}_0}(0)}{ \hat{V}_{\hat{H}_0}(t')}}{0} \text{d}t'
+        \label{eq:Sol:21}
+\end{split}
+\end{equation}
+This we often denote by $C_{AV}^{r}$ as given below:
+\begin{equation}
+    \delta A(t=0) = \int_{t_0}^{\infty}C_{AV}^{r}(t')\mathrm{d}t'
+\end{equation}
+\textbf{Note: A is time independent everything else is completely general}
+\end{solution}
+
+\subsection{Section 2; Harmonic time-dependence (the Kubo formula)}
+
+\begin{exercise}
+Now assume that the perturbation has a harmonic time-dependence $\hat{V} (t) = \mathrm{e}^{-i(\omega +i\eta)t}\hat{V}$ and is turned on adiabatically (very slowly) at time $t_0 = -\infty$, (through $\eta$). Use the identity $\hat{I} = \sum_{s} \ket{s}\bra{s}$ to show that in this case the change in the observable $A$ becomes:
+\begin{equation}
+    \delta A(\omega + i\eta) = \sum_{s} \dfrac{\mel{0}{\hat{A}}{s}\mel{s}{\hat{V}}{0}}{\omega - \omega_{s0} + i\eta} - \dfrac{\mel{0}{\hat{V}}{s}\mel{s}{\hat{A}}{0}}{\omega + \omega_{s0} + i\eta} 
+\end{equation}
+where $\omega_{s0} = E_s - E_0$ is the difference between the groundstate and s'th excited state energy of $\hat{H}_0$.
+\end{exercise}
+\begin{solution}
+In order to use Kabo's formula we need to transform $\hat{V}$ into the basis of the unperturbed Hamiltonian, i.e. $\hat{V}_{\hat{H}_0}(t) = \mathrm{e}^{i\hat{H}_0t}\mathrm{e}^{-i(\omega + i\eta)}\hat{V}\mathrm{e}^{-i\hat{H}_0t}$. We still have that $\hat{A}_{\hat{H}_0} = \hat{A}$ due to time-independence.
+Inserting into Kabo's forumla we get:
+\begin{equation}
+    \delta A(\omega + i\eta) = \int_{-\infty}^{0}-i \mel{0}{\comm{\hat{A}_{\hat{H}_0}}{\hat{V}_{\hat{H}_0}(t')}}{0}\mathrm{d}t'
+\end{equation}
+Focusing only on the first term of the commutator and using the identity $\hat{I} = \sum_{s} \ket{s}\bra{s}$, as well as the fact that the sum over $s$ commutes with the integral to obtain:
+\begin{equation}\label{eq:p2q10}
+    \sum_{s}\int_{-\infty}^{0}-i \mel{0}{\hat{A}_{\hat{H}_0} \ket{s}\bra{s}\mathrm{e}^{i\hat{H}_0t}\mathrm{e}^{-i(\omega + i\eta)}\hat{V}\mathrm{e}^{-i\hat{H}_0t}}{0}\mathrm{d}t'
+\end{equation}
+The effect of the operators is $\mathrm{e}^{i\hat{H}_0t}\ket{s} = \mathrm{e}^{i\omega_st}\ket{s}$, (and $\bra{s}\mathrm{e}^{i\hat{H}_0t} = \bra{s}\mathrm{e}^{i\omega_st}$), this is obtained through the series expansion of $\mathrm{e}^{i\hat{H}_0t}$ acting on the state. Hence \eqref{eq:p2q10} can be stated in a more compact form, by taking the exponentials outside, as they are just constants, and substituting back $\hat{A}_{\hat{H}_0} = \hat{A}$:
+\begin{equation}
+    \sum_{s}\int_{-\infty}^{0}-i\mathrm{e}^{-i(\omega + i\eta -\omega_0 + \omega_s)t} \mel{0}{\hat{A}} {s}\mel{s}{\hat{V}}{0}\mathrm{d}t'
+\end{equation}
+Noting here that the other part of the commutator is obtained by letting the $\pm \hat{H}_0$ operator act on the opposite states i.e. we obtain $+\omega_0 - \omega_s$ in the exponent instead. As both $\hat{A}$ and $\hat{V}$ is independent of time they commute with the integral which is trivially integrated to get:
+\begin{equation}
+    \sum_{s}\mel{0}{\hat{A}} {s}\mel{s}{\hat{V}}{0}\left[\dfrac{-i\mathrm{e}^{-i(\omega + i\eta -\omega_0 + \omega_s)}}{-i(\omega -\omega_{s0} + i\eta)t}\right]_{-\infty}^{0} = \sum_{s}\dfrac{\mel{0}{\hat{A}} {s}\mel{s}{\hat{V}}{0}}{\omega -\omega_{s0} + i\eta}
+\end{equation}
+Repeating the same operation for the other part of the commutator shifts the operators $\hat{A}$ and $\hat{V}$ as well as the sign on $\omega_{s0}$ hence we obtain the solution:
+\begin{equation}
+    \delta A(\omega + i\eta) = \sum_{s} \dfrac{\mel{0}{\hat{A}}{s}\mel{s}{\hat{V}}{0}}{\omega - \omega_{s0} + i\eta} - \dfrac{\mel{0}{\hat{V}}{s}\mel{s}{\hat{A}}{0}}{\omega + \omega_{s0} + i\eta} 
+    \label{eq:Kubo}
+\end{equation}
+The result is complex because we introduced the harmonic potential through the complex exponential. Consequently we must take the real part to obtain a pertubation of the form $\cos(\omega t)\hat{V}$ or imaginary part for the form $\sin(\omega t)\hat{V}$. As $\eta$ was introduced to turn on the harmonic pertubation adiabatically we must take the limit $\lim_{\eta\rightarrow0}\mathrm{Re,Im}[\delta A(\omega+i\eta)]$ to obtain the real solution. \textbf{NB!} the real and imaginary operator does not commute with the limit.
+\end{solution}
+
+
+\subsection{Section 3; Kramers-Kronig relations}
+\begin{exercise}
+The derivation of the Kramers-Kronig relations.
+\end{exercise}
+\begin{solution}
+Equation 9 in the problem handout can in the notation $z \rightarrow \omega$, can be written as
+\begin{equation}
+    F(\omega) = \int_{0}^{\infty} e^{i \omega t}F(t) \text{d}t
+\end{equation}
+ This integral is finite as long as $F(t)$ does not grow exponentially or faster.
+ Furthermore it has no poles, which means that the function
+ \begin{equation}
+     \frac{F(\omega')}{\omega - \omega' + i \eta}
+ \end{equation}
+ only has a single pole, slightly below the real axis. Integrating the above function around a contour that runs along the real axis, and follows a halfcircle with a radius going to infinity along the upper half of the complex plane must thus equal 0. \\
+ Furthermore the function goes to zero when $\abs{\omega'}$ goes to infinity, so the integral along the upper half plane is also equal to zero. This means that an integral along the entire real axis must also equal zero, so
+ \begin{equation}
+     \int_{-\infty}^{\infty} \frac{F(\omega')}{\omega - \omega' + i \eta} \text{d} \omega' = 0
+ \end{equation}
+ Using the identity given by equation 13 in the problem handout, with $x=\omega-\omega'$, we obtain
+ \begin{equation}
+     \int_{-\infty}^{\infty} F(\omega') \left(\frac{\mathcal{P}}{\omega-\omega'} - i \pi \delta(\omega-\omega') \right)\text{d}\omega' = \mathcal{P}\int_{-\infty}^{\infty} \frac{F(\omega')}{\omega-\omega'} \text{d} \omega'- i \pi F(\omega)= 0
+ \end{equation}
+ For the above equation to be true both the real and imaginary parts must equal zero. Taking the real part of the above equation and using $\text{Re}(i f(x)) = -\text{Im}(f(x))$ yields
+ \begin{equation}
+     \mathcal{P} \int_{-\infty}^{\infty} \frac{\text{Re}(F(\omega'))}{\omega'-\omega} \text{d} \omega' + \pi \text{Im}(F(\omega)) = 0 \Leftrightarrow \text{Im}(F(\omega)) = -\frac{\mathcal{P}}{\pi} \int_{-\infty}^{\infty} \frac{\text{Re}(F(\omega'))}{\omega'-\omega} \text{d} \omega'
+ \end{equation}
+ Using equation (15) in the problem handout the above integral can be split in a sum of two integrals from 0 to infinity, where the second integral has $\omega \rightarrow - \omega$
+ \begin{equation}
+     \text{Im}(F(\omega)) = -\frac{\mathcal{P}}{\pi} \int_{0}^{\infty} \frac{\text{Re}(F(\omega'))}{\omega'-\omega} + \frac{\text{Re}(F(\omega'))}{\omega'+\omega} \text{d} \omega' = -\frac{\mathcal{P}}{\pi} \int_{0}^{\infty} \frac{2 \omega' \text{Re}( F(\omega'))}{\omega'^2-\omega^2} \text{d} \omega'
+ \end{equation}
+ 
+ 
+ 
+ 
+ Similarly for the imaginary part, using $\text{Im}(i f(x)) = +\text{Re}(f(x))$
+ \begin{equation}
+     \mathcal{P} \int_{-\infty}^{\infty} \frac{\text{Im}(F(\omega'))}{\omega'-\omega} \text{d} \omega' - \pi \text{Re}(F(\omega)) = 0 \Leftrightarrow \text{Re}(F(\omega)) = \frac{\mathcal{P}}{\pi} \int_{-\infty}^{\infty} \frac{\text{Im}(F(\omega'))}{\omega'-\omega} \text{d} \omega'
+ \end{equation}
+ Using equation 14 in the problem handout this integral also be split up in two terms, again with $\omega \rightarrow - \omega$ in the second term.
+ \begin{equation}
+     \text{Re}(F(\omega)) = \frac{\mathcal{P}}{\pi} \int_{0}^{\infty} \frac{\text{Im}(F(\omega'))}{\omega'-\omega} - \frac{\text{Im}(F(\omega'))}{\omega'+\omega}\text{d} \omega' =\frac{\mathcal{P}}{\pi} \int_{0}^{\infty} \frac{2 \omega \text{Im}(F(\omega'))}{\omega'-\omega} \text{d} \omega'
+ \end{equation}
+ 
+ \textbf{Note:} The Kramer-Kronig relations thereby couple the imaginary part of the dielectric function to the real part. The imaginary part is related to absorption in a medium, whereas the real part is usually related to dispersion. Thereby different optical properties are seen to be coupled to each other.
+\end{solution}
+
+
+
+\newpage
+\subsection{Section 4; Density-density response}
+\begin{exercise}
+We now specialize to the case: $\hat{A}= \hat{n}(r)$ and $\hat{V} = \int V(r)\hat{n}(r)\mathrm{d}r$. In this case the Kubo formula gives the change in the electron density at a point $r$ when the system is subject to a potential of the form $V(r)$. Again we assume a harmonic time dependence of the applied potential which is switched on adiabatically at $t_0 = -\infty$. Show that in this case
+\begin{equation}
+    \delta n(r,\omega) = \int \chi(r,r',\omega) V(r')\mathrm{d}r
+\end{equation}
+where the density-density response function is given by
+\begin{equation}
+    \chi(r,r',\omega) = \sum_{i,j} \dfrac{\mel{0}{\hat{n}(r)}{s}\mel{s}{\hat{n}(r')}{0}}{\omega - \omega_{s0} + i\eta} - \dfrac{\mel{0}{\hat{n}(r')}{s}\mel{s}{\hat{n}(r)}{0}}{\omega + \omega_{s0} + i\eta}
+\end{equation}
+\vspace{-0.55cm}
+\end{exercise}
+
+
+\begin{solution}
+Plugging the form of the observable and potential into equation \ref{eq:Kubo} yields
+\begin{equation}
+    \delta n(r,\omega) = \sum_{s} \dfrac{\mel{0}{\hat{n}(r)}{s}\mel{s}{\int V(r')\hat{n}(r')\text{d}r' }{0}}{\omega - \omega_{s0} + i\eta} - \dfrac{\mel{0}{\int V(r')\hat{n}(r')\text{d}r' }{s}\mel{s}{\hat{n}(r)}{0}}{\omega + \omega_{s0} + i\eta} 
+\end{equation}
+The inner product and the integral commute as they are over different variables. Thus it follows directly that
+\begin{equation}
+\begin{split}
+        \delta n(r,\omega) = &\int V(r') \sum_{s} \dfrac{\mel{0}{\hat{n}(r)}{s}\mel{s}{\hat{n}(r') }{0}}{\omega - \omega_{s0} + i\eta} - \dfrac{\mel{0}{\hat{n}(r') }{s}\mel{s}{\hat{n}(r)}{0}}{\omega + \omega_{s0} + i\eta} \text{d}r' \\
+        = & \int \chi(r,r',\omega) V(r') \text{d}r'
+\end{split}
+\label{eq:densitydensity}
+\end{equation}
+
+
+\end{solution}
+
+
+
+
+
+\subsection{Section 6; Non-interacting density-density response}
+\begin{exercise}
+We now consider non-interacting electrons. In this case the eigenstates $\ket{s}$ are simply Slater determinants build from the single-particle eigenstates fulfilling $\hat{H}_0\ket{\phi_i} = \varepsilon_i\ket{\phi_i}$. Show that the non-interacting density response function takes the form
+\begin{equation}
+    \chi^{0}(r,r',\omega) = \sum_{i,j} (f_i-f_j)\dfrac{\phi^{*}_i(r)\phi_j(r)\phi_i(r')\phi^{*}_j(r')}{\omega - (\varepsilon_j - \varepsilon_i) + i\eta}
+\end{equation}
+where $f_i = \theta(\varepsilon_F-\varepsilon_i)$ is the occupation number of orbital i.
+\end{exercise}
+
+\begin{solution}
+We start by evaluating the inner products, using the density operator on second quantised form $\hat{n}(r) = \sum_{ij} \phi_i^*(r)\phi_j(r)\hat{c}_i^{\dagger}\hat{c}_j$.
+\begin{equation}
+    \mel{0}{\hat{n}(r)}{s} = \sum_{ij}\phi_i^*(r)\phi_j(r) \mel{0}{\hat{c}_i^{\dagger} \hat{c}_j}{s} =  \sum_{ij}\phi_i^*(r)\phi_j(r) f_i(1-f_j) \delta_{s0_j^i}
+\end{equation}
+Where the index in the delta function denotes the i'th orbital in the groundstate (0), and the j'th orbital in the s state, and
+$f$ denotes the probability of finding an electron in the state, given by the Fermi-Dirac distribution. \\
+Similarly
+\begin{equation}
+    \mel{s}{\hat{n}(r')}{0} = \sum_{kl}\phi_k^*(r)\phi_l(r) \mel{s}{\hat{c}_k^{\dagger} \hat{c}_l}{0} = \sum_{kl} \phi_k^*(r') \phi_l(r') f_l(1-f_k) \delta_{s0_k^l}
+\end{equation}
+So that the product of the two is
+\begin{equation}
+\begin{split}
+        & \mel{0}{\hat{n}(r)}{s}\mel{s}{\hat{n}(r')}{0} \\
+        = & \sum_{ij}\phi_i^*(r)\phi_j(r) f_i(1-f_j) \delta_{s0_j^i} \sum_{kl} \phi_k^*(r') \phi_l(r') f_l(1-f_k) \delta_{s0_k^l}
+\end{split}
+\end{equation}
+The delta functions cancel each other unless $i=l$ and $j=k$, so it reduces to one sum
+\begin{equation}
+    \sum_{ij} \phi_i^*(r)\phi_j(r) f_i^2(1-f_j)^2 \delta_{s0_j^i} \phi_j^*(r') \phi_i(r') 
+\end{equation}
+We are assuming so low temperatures that the Fermi-Dirac distribution is a step function, so that the above gives
+\begin{equation}
+        \sum_{ij} \phi_i^*(r)\phi_j(r) f_i(1-f_j) \delta_{s0_j^i} \phi_j^*(r') \phi_i(r') 
+\end{equation}
+Now we can write up the full equation (20) from the problem handout
+\begin{equation}
+    \sum_s \frac{\sum_{ij} \phi_i^*(r)\phi_j(r) f_i(1-f_j) \delta_{s0_j^i} \phi_j^*(r') \phi_i(r') }{\omega - \omega_{s0} + i \eta} - \frac{\sum_{ij} \phi_i^*(r')\phi_j(r') f_i(1-f_j) \delta_{s0_j^i} \phi_j^*(r) \phi_i(r) }{\omega + \omega_{s0} + i \eta}
+\end{equation}
+The s-sum only gives a contribution from exactly the state s that has the correct orbital, thereby cancelling the delta-functions.
+\begin{equation}
+    \frac{\sum_{ij} \phi_i^*(r)\phi_j^*(r') f_i(1-f_j)  \phi_j(r) \phi_i(r') }{\omega - \omega_{ji} + i \eta} - \frac{\sum_{ij} \phi_i^*(r')\phi_j^*(r) f_i(1-f_j)  \phi_j(r') \phi_i(r) }{\omega + \omega_{ji} + i \eta}
+\end{equation}
+The index is shifted in the second term as $j \leftrightarrow i$, then using $\omega_{ij} = - \omega_{ji}$, as well as $f_jf_i = 0$, we obtain
+\begin{equation}
+\begin{split}
+       &\sum_{ij} \frac{ \phi_i^*(r)\phi_j^*(r')  \phi_j(r) \phi_i(r') }{\omega - \omega_{ji} + i \eta}(f_i(1-f_j) - f_j(1-f_i)) \\
+       = &\sum_{ij} (f_i-f_j)\frac{ \phi_i^*(r)\phi_j^*(r')   \phi_j(r) \phi_i(r') }{\omega - \omega_{ji} + i \eta}
+\end{split}
+\label{eq:234}
+\end{equation}
+\end{solution}
+
+\subsection{Section 7; Fourier properties of periodic systems}
+\begin{exercise}
+Show that any function that fulfills $f(r, r_0) = f(r +R, r_0 +R)$, where $R$ is a lattice vector, is block diagonal in reciprocal space, i.e. $f(G + q;G' + q') = f(G + q,G' + q)\delta_{qq'}$ . We denote $f(G + q,G' + q) = fGG'(q)$.
+\end{exercise}
+\begin{solution}
+The approach is to write up $f(G+q,G'+q')$ using both $f(r,r')$ and $f(r+R,r'+R)$, and then figure out, what must be true for $q$ and $q'$.
+\begin{align}
+    f(Q,Q') &= \int\int \mathrm{e}^{iQr}f(r,r')\mathrm{e}^{-iQ'r'}\mathrm{d}r\mathrm{d}r' \\
+    f(G+q,G'+q') &= \int\int \mathrm{e}^{i(G+q)r}f(r,r')\mathrm{e}^{-i(G'+q')r'}\mathrm{d}r\mathrm{d}r'
+    \label{eq:236}
+\end{align}
+Now using $f(r+R,r'+R)$
+\begin{align}
+    f(G+q,G'+q') &= \int \int \mathrm{e}^{i(G+q)(R+r)} f(r+R,r'+R) \mathrm{e}^{-i(G'+q')(R+r')} \mathrm{d}r\mathrm{d}r'\\
+    &=\int \int \mathrm{e}^{i(G+q)r} f(r+R,r'+R) \mathrm{e}^{-i(G'+q')r'}\mathrm{e}^{(q-q')R} \mathrm{d}r\mathrm{d}r'
+    \label{eq:238}
+\end{align}
+Where we have used $\mathrm{e}^{iGR} = \mathrm{e}^{i2\pi n} \; ; \; n \in \mathbb{Z}$, so $\mathrm{e}^{iGR} = 1$.
+If $f(r,r')$ and $f(r+R,r'+R)$ are equivalent we must also have that \eqref{eq:236} and \eqref{eq:238} are the same. For this to be true we get that
+\begin{equation}
+    (q-q')R = 2 \pi n \; , \; n \in \mathbb{Z}
+\end{equation}
+But $q$ and $q'$ are both smaller than a reciprocal lattice vector G, as they are in the first Brillouin zone, thus $\abs{(q-q')R} < 2 \pi$, therefore we must have $q=q'$, as $qR \in ]-\pi;\pi[$.
+\end{solution}
+
+\subsection{Section 7; Non-interacting density response of periodic systems}
+\begin{exercise}
+For a periodic system the eigenstates can be labelled $\ket{\phi_{nk}}$ where $n$ is a band index and $k$ is a wave vector in the first BZ. Show that in this case the non-interacting density response function takes the form
+{\small \begin{equation}
+    \chi_{G,G'}^{0}(q,\omega) = \sum_{nm}\sum_{k}(f_{nk}-f_{m(k+q)})\dfrac{\mel{\phi_{nk}}{\mathrm{e}^{i(G+q)r}}{\phi_{m(k+q)}}\mel{\phi_{m(k+q)}}{\mathrm{e}^{-i(G'+q)r}}{\phi_{nk}}}{\omega - (\varepsilon_{m(k+q)}-\varepsilon_{nk}) + i\eta}
+\end{equation}}
+\end{exercise}
+
+\begin{solution}
+As we are in a periodic structure, we can know the wavefunctions can be indexed by a band-number and the wavevectors k, thus we let $i \rightarrow nk$, $j \rightarrow mk'$
+
+{\small
+\begin{equation}
+    \chi_{G,G'}^{0}(q,\omega) = \int \int \mathrm{e}^{i(G+q)r} \sum_{nk}\sum_{mk'}(f_{nk}-f_{mk'})\dfrac{\phi_{nk}^{*}(r)\phi_{mk'}(r)\phi_{nk}(r')\phi_{mk'}^{*}(r')}{\omega - (\varepsilon_{mk'}-\varepsilon_{nk})+i\eta}\mathrm{e}^{-i(G'+q)r'}\mathrm{d}r\mathrm{d}r'
+\end{equation}}
+Grouping terms in $r$ and $r'$ this can be written as two inner products
+\begin{equation}
+    \chi_{G,G'}^{0}(q,\omega) = \sum_{nk} \sum_{mk'} (f_{nk}-f_{mk'}) \frac{\mel{\phi_{nk}}{e^{i(G+q)r}}{\phi_{mk'}}\mel{\phi_{mk'}}{e^{-i(G'+q)r'}}{\phi_{nk}}}{\omega - (\varepsilon_{mk'}-\varepsilon_{nk})+i\eta}
+\end{equation}
+We now focus on only one inner product, namely the second (for no good reason), so that
+\begin{align}
+    \mel{\phi_{mk'}}{e^{-i(G+q)r}}{\phi_{nk}} &= \int \phi_{mk'}^{*}(r) \mathrm{e}^{-i(G+q)r}\phi_{nk}(r) \mathrm{d}r\\
+    & =\int u_{mk'}^{*}\mathrm{e}^{-ik'r} \mathrm{e}^{-i(G+q)r}\mathrm{e}^{ikr}u_{nk} \mathrm{d}r \label{eq:244}
+\end{align}
+Above we have used that it is a periodic system, so that the wave function can be written as a product of a Bloch wave and a plane wave. 
+This integral is the sum of identical integrals for all lattice vectors $R$, all given by  the integral in the first Brillouin zone. Hence we may formulate \eqref{eq:244} as the sum over all $R$ by substituting $r \rightarrow r + R$ and integrating over the first Brillouin zone.
+\begin{equation}
+    \mel{\phi_{mk'}}{e^{-i(G+q)r}}{\phi_{nk}} = \sum_R \int_{BZ} u_{mk'}^{*}\mathrm{e}^{-ik'(r+R)} \mathrm{e}^{-i(G+q)(r+R)}\mathrm{e}^{ik(r+R)}u_{nk} \mathrm{d}r
+\end{equation}
+Again using the identity $\mathrm{e}^{iGR} = 1$ and taking in the sum over $R$
+\begin{equation}
+    \mel{\phi_{mk'}}{e^{-i(G+q)r}}{\phi_{nk}} =  \int_{BZ} u_{mk'}^{*}\mathrm{e}^{-ik'r} \mathrm{e}^{-i(G+q)r}\mathrm{e}^{ikr}u_{nk} \sum_R \mathrm{e}^{i(k - q -k')R} \mathrm{d}r
+\end{equation}
+where the sum results in a delta function in $k = k' + q$, i.e. $\sum_R \mathrm{e}^{i(k + q -k')R} = \delta(k-q-k')$. The same argument goes for the second inner product (i.e. $k = k' + q$), explicitly noting that $r = r'$ as the two integrals are independent. Finally letting $k \rightarrow k'$ (as we can label stuff as we like).
+\begin{equation}
+       \chi_{G,G'}^{0}(q,\omega) = \sum_{nm} \sum_{k} (f_{nk}-f_{m(k+q)}) \frac{\mel{\phi_{m(k+q)}}{e^{i(G+q)r}}{\phi_{nk}}\mel{\phi_{nk}}{e^{i(G'+q)r}}{\phi_{m(k+q)}}}{\omega - (\varepsilon_{m(k+q)}-\varepsilon_{nk})+i\eta} 
+       \label{eq:247}
+\end{equation}
+Q.E.D.
+
+\newpage
+
+\subsection{Summary}
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+% Boxes describing the different segments in chapter
+% Chapter 2.1
+\node [minimum width = 12.9cm,below,text width=12.7cm] (A) at (-5.1,10) [draw, align=left] {In section 2.1. We arrive at an equation (\eqref{eq:Sol:21}): {\small \[ \delta A(t=0) = - i \int_{t_0}^{\infty} \theta(-t') \mel{0}{\comm{\hat{A}_{\hat{H}_0}(0)}{ \hat{V}_{\hat{H}_0}(t')}}{0} \text{d}t' \]} relating the change in an observable A, due to a perturbation $\hat{V}$. Everything is completely general to linear order except the  observable itself is assumed to be time independent.};
+
+% Chapter 2.2 at (-5.1,7.88) [draw, align=left]
+\node [below = of A,minimum width = 12.9cm,text width=12.7cm,draw,align=left] (B) {In section 2.2 we assume that the perturbation is harmonic and has taken forever to get turned on. This could be used to describe when the material is perturbed by an electromagnetic wave, or any other harmonically varying perturbation} ;
+
+%Chapter 2.4
+\node [below = of B,minimum width = 12.9cm,below,text width=12.7cm,draw,align=left] (C) {In section 2.4 we now look at the specific case of the response of the density at a point to a perturbation that is proportional to the density, and still periodic. In this case the response function is given by equation \eqref{eq:densitydensity} and is denoted the density-density response function.};
+
+%Chapter 2.5
+\node [below = of C,minimum width = 12.9cm,below,text width=12.7cm,draw,align=left] (D) {In section 2.5 we look at the density-density response of non interacting electrons, the result is \eqref{eq:234}. {\small \[ \chi^{0}(r,r',\omega) = \sum_{i,j} (f_i-f_j)\dfrac{\phi^{*}_i(r)\phi_j(r)\phi_i(r')\phi^{*}_j(r')}{\omega - (\varepsilon_j - \varepsilon_i) + i\eta} \]}};
+
+
+%Chapter 2.7
+\node [below = of D,minimum width = 12.9cm,below,text width=12.7cm,draw,align=left] (E) {In section 2.7 we look at the density-density response of a \textit{periodic} system of noninteracting electrons, the analysis is then simplified as we can choose to just work within the FBZ. The result is \eqref{eq:247}. {\footnotesize \[ \chi_{G,G'}^{0}(q,\omega) = \sum_{nm} \sum_{k} (f_{nk}-f_{m(k+q)}) \frac{\mel{\phi_{m(k+q)}}{e^{i(G+q)r}}{\phi_{nk}}\mel{\phi_{nk}}{e^{i(G'+q)r}}{\phi_{m(k+q)}}}{\omega - (\varepsilon_{m(k+q)}-\varepsilon_{nk})+i\eta}  \]}};
+
+\draw[->,thick, to path={-- (\tikztotarget)}]
+  (A) edge (B) (B) edge (C) (C) edge (D) (D) edge (E);
+
+%% Axis describing generality and specific
+\draw[<->, very thick] (-12.5,-8.5) -- (-12.5,10);
+\node at (-13,10)  [rotate=90, anchor = base]  {\textbf{General}};
+\node at (-13,-1.7) [rotate=90, anchor = base]  {\textbf{Specific}};
+\end{tikzpicture}
+
+
+
+\end{figure}
+\end{solution}
